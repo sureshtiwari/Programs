@@ -2,8 +2,6 @@ package com.programs;
 
 import java.io.*;
 
-
-
 import java.math.*;
 import java.security.*;
 import java.text.*;
@@ -27,28 +25,36 @@ class Player {
 
 public class Solution {
 
-public int compare(Player a, Player b) {
-			
-			if(a.score>b.score)
-				return 1;
-			if(a.score<b.score)
-				return -1;
-			if(a.score==b.score)
-			{
-				if(a.name.compareTo(b.name)>0)
-					return 1;
-				if(a.name.compareTo(b.name)<0)
-					return -1;
-				return 0;
+	public static List<String> usernamesSystem(List<String> u) {
+		// Write your code here
+		HashMap<String, Integer> hashmap = new HashMap<String, Integer>();
+		ArrayList<String> result = new ArrayList<String>();
+		for (int i = 0; i < u.size(); i++) {
+			if (hashmap.containsKey(u.get(i))) {
+				for (int j = 1; j <= 99; j++) {
+					String newUsername = u.get(i) + Integer.toString(j);
+					if (!hashmap.containsKey(newUsername)) {
+						hashmap.put(newUsername, i);
+						result.add(newUsername);
+						break;
+					}
+				}
+			} else {
+				hashmap.put(u.get(i), i);
+				result.add(u.get(i));
 			}
-			return 0;		
-    }
+		}
+		return result;
+	}
 
 	public static void main(String[] args) throws IOException {
 
-		int[] prices= {1,2,3,4};
-		int k=7;
-		System.out.println(maximumToys(prices, k));
+		ArrayList<String> u= new ArrayList<>();
+		u.add("alex");
+		u.add("xylos");
+		u.add("alex");
+		u.add("alan");
+		System.out.println(usernamesSystem(u));
 
 	}
 }
