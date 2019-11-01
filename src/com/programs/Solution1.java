@@ -16,34 +16,34 @@ import static java.util.stream.Collectors.toList;
 
 public class Solution1 {
 	
-	 public static int majorityElement(int[] nums) {
-	        HashMap<Integer, Integer> hm = new HashMap<Integer, Integer>();
-	        for(int i=0;i<nums.length;i++)
-	        {
-	        	if(hm.containsKey(nums[i]))
-	        	{
-	        		hm.put(nums[i], hm.get(nums[i])+1);
-	        	}
-	        	else
-	        	{
-	        		hm.put(nums[i], 1);
-	        	}
-	        }
-	        int answer=0;
-	        int result = 0;
-	        for(Map.Entry<Integer, Integer> entry : hm.entrySet()) {
-			    if(entry.getValue()>result)
-			    {
-			    	answer = entry.getKey();
-			    	result=entry.getValue();
-			    }
-			}
-	        return answer;
+	 public static int[] searchRange(int[] nums, int target) {
+		 int[] result = new int[2];
+		 int flag=0;
+	      for(int i=0;i<nums.length;i++)
+	      {
+	    	  if(flag==0)
+	    	  if(nums[i]==target)
+	    	  {
+	    		  result[0] = i;
+	    		  flag=1;
+	    	  }
+	    	  if(flag==1)
+	    		  if(nums[i]!=target)
+                  { result[1] = i-1;break;}
+	    	  
+	      }
+	      if(flag==0)
+	      {
+	    	  int[] array = {-1,-1};
+	    	  return array;
+	      }
+	      return result;
 	    }
 
 	public static void main(String[] args) throws IOException {
-		int[] a = {3,3,4};
-		System.out.println(majorityElement(a));
-
+		int[] a = {5,7,7,8,8,10};
+		int target = 8;
+		int[] array = searchRange(a,target);
+		System.out.println(array[0] + array[1]);
 	}
 }
