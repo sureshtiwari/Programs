@@ -16,34 +16,45 @@ import static java.util.stream.Collectors.toList;
 
 public class Solution1 {
 	
-	 public static int[] searchRange(int[] nums, int target) {
-		 int[] result = new int[2];
-		 int flag=0;
-	      for(int i=0;i<nums.length;i++)
-	      {
-	    	  if(flag==0)
-	    	  if(nums[i]==target)
-	    	  {
-	    		  result[0] = i;
-	    		  flag=1;
-	    	  }
-	    	  if(flag==1)
-	    		  if(nums[i]!=target)
-                  { result[1] = i-1;break;}
-	    	  
-	      }
-	      if(flag==0)
-	      {
-	    	  int[] array = {-1,-1};
-	    	  return array;
-	      }
-	      return result;
+	 private static int extremeInsertionIndex(int[] nums, int target, boolean left) {
+	        int lo = 0;
+	        int hi = nums.length;
+
+	        while (lo < hi) {
+	            int mid = (lo + hi) / 2;
+	            if (nums[mid] > target || (left && target == nums[mid])) {
+	                hi = mid;
+	            }
+	            else {
+	                lo = mid+1;
+	            }
+	        }
+
+	        return lo;
+	    }
+
+	    public static int[] searchRange(int[] nums, int target) {
+	        int[] targetRange = {-1, -1};
+
+	        int leftIdx = extremeInsertionIndex(nums, target, true);
+
+	        // assert that `leftIdx` is within the array bounds and that `target`
+	        // is actually in `nums`.
+	        if (leftIdx == nums.length || nums[leftIdx] != target) {
+	            return targetRange;
+	        }
+
+	        targetRange[0] = leftIdx;
+	        targetRange[1] = extremeInsertionIndex(nums, target, false)-1;
+
+	        return targetRange;
 	    }
 
 	public static void main(String[] args) throws IOException {
-		int[] a = {5,7,7,8,8,10};
-		int target = 8;
+		int[] a = {1,2,4,4,4,4,4,4,4,5};
+		int target = 4;
 		int[] array = searchRange(a,target);
-		System.out.println(array[0] + array[1]);
+		System.out.println(array[0]);
+		System.out.println(array[1]);
 	}
 }
