@@ -25,27 +25,22 @@ class Player {
 
 public class Solution {
 
-	public static List<String> usernamesSystem(List<String> u) {
-		// Write your code here
-		HashMap<String, Integer> hashmap = new HashMap<String, Integer>();
-		ArrayList<String> result = new ArrayList<String>();
-		for (int i = 0; i < u.size(); i++) {
-			if (hashmap.containsKey(u.get(i))) {
-				for (int j = 1; j <= 99; j++) {
-					String newUsername = u.get(i) + Integer.toString(j);
-					if (!hashmap.containsKey(newUsername)) {
-						hashmap.put(newUsername, i);
-						result.add(newUsername);
-						break;
-					}
-				}
-			} else {
-				hashmap.put(u.get(i), i);
-				result.add(u.get(i));
-			}
-		}
-		return result;
-	}
+	 public String dayOfTheWeek(int d, int m, int y) {
+	        int t[] = { 0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4 }; 
+	        y -= (m < 3) ? 1 : 0; 
+	        int result = ( y + y/4 - y/100 + y/400 + t[m-1] + d) % 7; 
+	        switch(result)
+	        {
+	        case 0:return "Sunday";
+	        case 1:return "Monday";
+	        case 2:return "Tuesday";
+	        case 3:return "Wednesday";
+	        case 4:return "Thrusday";
+	        case 5:return "Friday";
+	        case 6:return "Saturday";
+	        }
+	        return "";
+	    }
 
 	public static void main(String[] args) throws IOException {
 
